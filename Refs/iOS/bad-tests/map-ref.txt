@@ -1,0 +1,21 @@
+import SwiftUI
+struct ContentView:View{
+    @State var value:Bool = false
+    var body:some View {
+        VStack{
+            Button(label:{
+                Text(""call me "")
+            }
+                ,action:{
+                    
+                    UIApplication.shared.openURL(URL(string:"https://www.google.com/maps/@37.865101,-119.538330,6z")!)
+                    
+            }
+            )
+        }
+    }
+}
+struct ContentView_Previews:PreviewProvider{
+    static var previews:some View{
+        ContentView() }
+}

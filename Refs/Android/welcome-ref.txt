@@ -1,0 +1,33 @@
+package com.example.myapplication;
+import android.widget.TextView;
+import android.view.View;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+public class Login extends AppCompatActivity {
+    String onChangeText = "";
+    @Override
+    protected void onCreate (Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final EditText input = (EditText) findViewById(R.id.input);
+        onChangeText = input.getText().toString();
+        final TextView tinyLogo = (TextView) findViewById(R.id.tinyLogo2);
+        tinyLogo.setText(onChangeText);
+        final Button GotoCounterScreen = (Button) findViewById(R.id.GotoCounterScreen);
+        GotoCounterScreen.setOnClickListener(new View.OnClickListener(){
+                                                 public void onClick(View v) {
+
+                                                     Intent intent = new Intent(Login.this,testScreen.class);
+                                                     startActivity(intent);
+                                                 }
+                                             }
+        );
+
+    }
+}

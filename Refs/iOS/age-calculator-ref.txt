@@ -1,0 +1,31 @@
+import SwiftUI
+struct ContentView:View{
+@State var value:Bool = false
+@State var Age:String = ""
+@State var date:String = ""
+    func buttonClickListner(date:String)-> Void {
+        var year: Int = 2021
+        var ans: Int = Int(year)-Int(date)!
+        Age = "your age is "+String(ans)+" years"
+}
+ var body:some View {
+                        VStack{
+        
+        TextField("Enter your age ",text:$date)
+
+                            Text(Age)
+                                .font(.system(size:12))
+                            Button(action:{
+                                buttonClickListner(date: date)
+                            }
+                            ,label:{
+                                Text("Get Age")
+                            }
+                            )
+                        }
+        }
+    }
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+ContentView() }
+ }

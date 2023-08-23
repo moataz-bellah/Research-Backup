@@ -1,0 +1,245 @@
+package com.example.myapplication;
+import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import androidx.core.app.ActivityCompat;
+public class MainActivity extends AppCompatActivity {
+    String currVal = "0" ;
+    String operator = null ;
+    String prevVal = null ;
+    public void handleTap(String type,String value){
+        if (type=="number")
+        {
+            currVal = currVal + " "  + (String)value;
+        }
+        if (type=="operator")
+        {
+            operator = value;
+            prevVal = currVal;
+            currVal = "0";
+        }
+        if (type=="clear")
+        {
+            currVal = "0";
+            operator = null;
+            prevVal = null;
+        }
+        if (type=="posneg")
+        {
+            currVal = String.valueOf(Float.parseFloat(currVal)*-1);
+        }
+        if (type=="percentage")
+        {
+            currVal = String.valueOf(Float.parseFloat(currVal)*0.01);
+        }
+        if (type=="equal")
+        {
+           float current = Float.parseFloat(currVal);
+            float previous = Float.parseFloat(prevVal);
+            if (operator=="+")
+            {
+                currVal = String.valueOf(previous+current);
+                operator = null;
+                prevVal = null;
+            }
+            if (operator=="/")
+            {
+                currVal = String.valueOf(previous/current);
+                operator = null;
+                prevVal = null;
+            }
+            if (operator=="-")
+            {
+                currVal = String.valueOf(previous-current);
+                operator = null;
+                prevVal = null;
+            }
+            if (operator=="*")
+            {
+                currVal = String.valueOf(previous*current);
+                operator = null;
+                prevVal = null;
+            }
+        }
+    }
+    @Override
+    protected void onCreate (Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        final TextView value = (TextView) findViewById(R.id.value);
+        value.setText(currVal);
+        final Button C = (Button) findViewById(R.id.C);
+        C.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("clear","");
+                                 }
+                             }
+        );
+
+        final Button PlusOrMinus = (Button) findViewById(R.id.PlusOrMinus);
+        PlusOrMinus.setOnClickListener(new View.OnClickListener(){
+                                   public void onClick(View v) {
+
+                                       handleTap("posneg");
+                                   }
+                               }
+        );
+
+        final Button modulas = (Button) findViewById(R.id.modulas);
+        modulas.setOnClickListener(new View.OnClickListener(){
+                         public void onClick(View v) {
+
+                             handleTap("percentage");
+                         }
+                     }
+        );
+
+        final Button devide = (Button) findViewById(R.id.devide);
+        devide.setOnClickListener(new View.OnClickListener(){
+                         public void onClick(View v) {
+
+                             handleTap("operator","/");
+                         }
+                     }
+        );
+
+        final Button seven = (Button) findViewById(R.id.seven);
+        seven.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","7");
+                                 }
+                             }
+        );
+
+        final Button eight = (Button) findViewById(R.id.eight);
+        eight.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","8");
+                                 }
+                             }
+        );
+
+        final Button nine = (Button) findViewById(R.id.nine);
+        nine.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","9");
+                                 }
+                             }
+        );
+
+        final Button x = (Button) findViewById(R.id.x);
+        x.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("operator","*");
+                                 }
+                             }
+        );
+
+        final Button four = (Button) findViewById(R.id.four);
+        four.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","4");
+                                 }
+                             }
+        );
+
+        final Button five = (Button) findViewById(R.id.five);
+        five.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","5");
+                                 }
+                             }
+        );
+
+        final Button six = (Button) findViewById(R.id.six);
+        six.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","6");
+                                 }
+                             }
+        );
+
+        final Button minus = (Button) findViewById(R.id.minus);
+        minus.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                 }
+                             }
+        );
+
+        final Button one = (Button) findViewById(R.id.one);
+        one.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","1");
+                                 }
+                             }
+        );
+
+        final Button two = (Button) findViewById(R.id.two);
+        two.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","2");
+                                 }
+                             }
+        );
+
+        final Button three = (Button) findViewById(R.id.three);
+        three.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","3");
+                                 }
+                             }
+        );
+
+        final Button plus = (Button) findViewById(R.id.plus);
+        plus.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("operator","+");
+                                 }
+                             }
+        );
+
+        final Button zero = (Button) findViewById(R.id.zero);
+        zero.setOnClickListener(new View.OnClickListener(){
+                                 public void onClick(View v) {
+
+                                     handleTap("number","0");
+                                 }
+                             }
+        );
+
+        final Button dot = (Button) findViewById(R.id.dot);
+        dot.setOnClickListener(new View.OnClickListener(){
+                         public void onClick(View v) {
+
+                             handleTap("number",".");
+                         }
+                     }
+        );
+
+        final Button equal = (Button) findViewById(R.id.equal);
+        equal.setOnClickListener(new View.OnClickListener(){
+                         public void onClick(View v) {
+
+                             handleTap("equal");
+                         }
+                     }
+        );
+
+    }
+}

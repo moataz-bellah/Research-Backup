@@ -1,0 +1,45 @@
+import SwiftUI
+struct ContentView:View{
+@State var value:Bool = false
+@State var onChangeText: String = ""
+ var body:some View {
+                        VStack{
+        
+        Button(action:{
+UIApplication.shared.open(URL(string: "http://instagram.com/_u/USER_NAME")!, options: [:])
+}
+,label:{
+ Text("Open Instagram")
+ }
+ )
+Button(action:{
+UIApplication.shared.open(URL(string: "https://www.facebook.com/")!, options: [:])
+
+
+}
+,label:{
+ Text("Open Facebook")
+ }
+ )
+Button(action:{
+UIApplication.shared.open(URL(string: "https://www.youtube.com/")!, options: [:])
+
+}
+,label:{
+ Text("Open Youtube")
+ }
+ )
+Button(action:{
+self.present(MainActivity, animated: true, completion: nil)
+}
+,label:{
+ Text("Go to Main Screen")
+ }
+ )
+}
+ }
+ }
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+ContentView() }
+ }

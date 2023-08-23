@@ -1,0 +1,35 @@
+import CodeScanner; 
+import SwiftUI 
+struct ContentView:View{ 
+@State var value: = false 
+
+ var body:some View {
+                        VStack{
+        
+         
+          @State private var showingScanner = false 
+            Button(action: {
+                
+            }) {
+                Image(systemName: "qrcode")
+                    .resizable()
+                    .frame(width: 32, height: 32)
+            }
+            .sheet(isPresented: $showingScanner) {
+                
+
+
+
+
+
+                     }
+                     self.showingScanner = false
+                 }
+            } 
+            } 
+ }
+ } 
+struct ContentView_Previews:PreviewProvider{ 
+static var previews:some View{ 
+ContentView() } 
+ }

@@ -1,0 +1,39 @@
+package com.example.reactnative;
+import android.widget.Button; 
+import android.widget.EditText; 
+import android.widget.TextView; 
+import android.view.View; 
+import android.widget.Toast; 
+import android.app.AlertDialog; 
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+ import androidx.core.app.ActivityCompat; 
+public class MainActivity extends AppCompatActivity { 
+ String EGP = "";
+ String USD = "";
+public void buttonClickListner(Object USD){
+final float ans = Number(USD)*15.7;
+if (USD=="")
+setEGP("");
+else setEGP(USD+" USD equal "+ans+" EGP");
+}
+@Override 
+            protected void onCreate (Bundle savedInstanceState){
+              super.onCreate(savedInstanceState); 
+              setContentView(R.layout.activity_main);
+
+              final EditText textin = (EditText) findViewById(R.id.textin); 
+USD = textin.getText().toString(); 
+final TextView textout = (TextView) findViewById(R.id.textout);
+textout.setText(EGP);
+final Button ConverttoEGP = (Button) findViewById(R.id.ConverttoEGP); 
+ConverttoEGP.setOnClickListener(new View.OnClickListener(){
+ public void onClick(View v) {
+ 
+buttonClickListner(USD);
+}
+}
+); 
+
+} 
+ }

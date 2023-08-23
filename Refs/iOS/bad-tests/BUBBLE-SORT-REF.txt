@@ -1,0 +1,79 @@
+import SwiftUI
+struct ContentView:View{
+@State var value:Bool = false
+func fill100()->Void {
+var inputArr:[Int] = []
+for i in 0...100{
+inputArr.append(i)
+}
+var len: Int = 100
+for i in 0...len{
+for j in 0...len-1{
+if (inputArr[j]>inputArr[j+1])
+{
+var tmp: Int = inputArr[j]
+inputArr[j]=inputArr[j+1]
+inputArr[j+1]=tmp
+}
+}
+}
+}
+func fill1000()->Void {
+var inputArr:[Int] = []
+for i in 0...1000{
+inputArr.append(i)
+}
+var len: Int = 1000
+for i in 0...len{
+for j in 0...len-1{
+if (inputArr[j]>inputArr[j+1])
+{
+var tmp: Int = inputArr[j]
+inputArr[j]=inputArr[j+1]
+inputArr[j+1]=tmp
+}
+}
+}
+}
+func fill10000()->Void {
+var inputArr:[Int] = []
+for i in 0...10000{
+inputArr.append(i)
+}
+var len: Int = 10000
+for i in 0...len{
+for j in 0...len-1{
+if (inputArr[j]>inputArr[j+1])
+{
+var tmp: Int = inputArr[j]
+inputArr[j]=inputArr[j+1]
+inputArr[j+1]=tmp
+}
+}
+}
+}
+ var body:some View {
+                        VStack{
+        
+        Button(action:self.fill100
+,label:{
+ Text("Sort 100")
+ }
+ )
+Button(action:self.fill1000
+,label:{
+ Text("Sort 1000")
+ }
+ )
+Button(action:self.fill10000
+,label:{
+ Text("Sort 10000")
+ }
+ )
+}
+ }
+ }
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+ContentView() }
+ }

@@ -1,0 +1,38 @@
+package com.example.react_App;
+import android.widget.Button; 
+import android.widget.EditText; 
+import android.widget.TextView; 
+import android.view.View; 
+import android.widget.Toast; 
+import android.app.AlertDialog; 
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+ import androidx.core.app.ActivityCompat; 
+public class MainActivity extends AppCompatActivity { 
+ String Age = "";
+ String date = "";
+public void buttonClickListner(Object date){
+ final Object year = 2021;
+  ans = year-date;
+setAge("your age is "+ans+" years");
+}
+@Override 
+            protected void onCreate (Bundle savedInstanceState){
+              super.onCreate(savedInstanceState); 
+              setContentView(R.layout.activity_main);
+
+              final EditText textin = (EditText) findViewById(R.id.textin); 
+date = textin.getText().toString(); 
+final TextView textout = (TextView) findViewById(R.id.textout);
+textout.setText(Age);
+final Button GetAge = (Button) findViewById(R.id.GetAge); 
+GetAge.setOnClickListener(new View.OnClickListener(){
+ public void onClick(View v) {
+ 
+buttonClickListner(date);
+}
+}
+); 
+
+} 
+ }

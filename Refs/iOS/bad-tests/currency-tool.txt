@@ -1,0 +1,32 @@
+import SwiftUI 
+struct ContentView:View{ 
+@State var value:= false 
+@State var EGP: = ""
+@State var USD: = ""
+    func buttonClickListner(USD:)->Void {
+var ans:  = (USD)*15.7
+if (USD==="")
+EGP = ""
+else EGP = USD+" USD equal "+ans+" EGP"
+}
+
+ var body:some View {
+                        VStack{
+                            TextField("Enter your currency ",text:$USD)        
+        Text(EGP)
+            .font(.system(size:12))
+                            Button(action:{
+                                    buttonClickListner(USD)
+
+                            }
+                            ,label:{
+                                Text("Convert to EGP")
+                            }
+                            )
+                        }
+            }
+    }
+struct ContentView_Previews:PreviewProvider{ 
+static var previews:some View{ 
+ContentView() } 
+ }

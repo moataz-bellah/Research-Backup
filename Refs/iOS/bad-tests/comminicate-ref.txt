@@ -1,0 +1,49 @@
+import SwiftUI
+  struct ContentView:View{
+  @State var value:Bool = false
+  @State var onChangeText: String = ""
+  func call(number :String)->Void {
+    
+    guard let number2 = URL(string: "tel://"+number) else { return }
+  UIApplication.shared.open(number2)
+  }
+  
+  var body:some View {
+                          VStack{
+          
+          TextField("useless placeholder",text:$onChangeText)
+  .frame(height:40)
+  Text(onChangeText)
+    .font(.system(size:12))
+                            Button(action:{
+                                call(number: onChangeText)
+
+
+
+  }
+  ,label:{
+  Text("Call")
+  }
+  )
+  Button(action:{
+    if let url = URL(string:UIApplication.openSettingsURLString) {
+      if UIApplication.shared.canOpenURL(url) {
+        let url =  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+      }
+  }
+
+
+  }
+  ,label:{
+  Text("Open Wifi")
+  }
+  )
+  Image("img.jpeg").resizable().aspectRatio(contentMode: .fit)
+  .frame(width:50,height:50)
+  }
+  }
+  }
+  struct ContentView_Previews:PreviewProvider{
+  static var previews:some View{
+  ContentView() }
+  }
