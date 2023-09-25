@@ -1,0 +1,235 @@
+package com.example.calculatorapp; // Update with your package name
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView valueTextView;
+    private String currVal = "0";
+    private String operator = null;
+    private String prevVal = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        valueTextView = findViewById(R.id.valueTextView);
+
+        // Initialize buttons
+        Button buttonC = findViewById(R.id.buttonC);
+        Button buttonPosNeg = findViewById(R.id.buttonPosNeg);
+        Button buttonPercentage = findViewById(R.id.buttonPercentage);
+        Button buttonDivide = findViewById(R.id.buttonDivide);
+        Button button7 = findViewById(R.id.button7);
+        Button button8 = findViewById(R.id.button8);
+        Button button9 = findViewById(R.id.button9);
+        Button buttonMultiply = findViewById(R.id.buttonMultiply);
+        Button button4 = findViewById(R.id.button4);
+        Button button5 = findViewById(R.id.button5);
+        Button button6 = findViewById(R.id.button6);
+        Button buttonSubtract = findViewById(R.id.buttonSubtract);
+        Button button1 = findViewById(R.id.button1);
+        Button button2 = findViewById(R.id.button2);
+        Button button3 = findViewById(R.id.button3);
+        Button buttonAdd = findViewById(R.id.buttonAdd);
+        Button button0 = findViewById(R.id.button0);
+        Button buttonDecimal = findViewById(R.id.buttonDecimal);
+        Button buttonEquals = findViewById(R.id.buttonEquals);
+
+        // Set click listeners for buttons
+        buttonC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("clear");
+            }
+        });
+
+        buttonPosNeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("posneg");
+            }
+        });
+
+        buttonPercentage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("percentage");
+            }
+        });
+
+        buttonDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("operator", "/");
+            }
+        });
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "7");
+            }
+        });
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "8");
+            }
+        });
+
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "9");
+            }
+        });
+
+        buttonMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("operator", "*");
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "4");
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "5");
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "6");
+            }
+        });
+
+        buttonSubtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("operator", "-");
+            }
+        });
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "1");
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "2");
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "3");
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("operator", "+");
+            }
+        });
+
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", "0");
+            }
+        });
+
+        buttonDecimal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("number", ".");
+            }
+        });
+
+        buttonEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleTap("equal");
+            }
+        });
+    }
+
+    private void handleTap(String type, String value) {
+        // Implement the logic to handle button taps (similar to your React Native code)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+}
