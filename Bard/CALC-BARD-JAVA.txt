@@ -1,0 +1,123 @@
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView currentValueTextView;
+    private TextView previousValueTextView;
+    private Button clearButton;
+    private Button plusMinusButton;
+    private Button percentageButton;
+    private Button divideButton;
+    private Button multiplyButton;
+    private Button subtractButton;
+    private Button addButton;
+    private Button equalButton;
+    private Button zeroButton;
+    private Button decimalButton;
+
+    private String currentValue;
+    private String previousValue;
+    private String operator;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        currentValueTextView = findViewById(R.id.currentValueTextView);
+        previousValueTextView = findViewById(R.id.previousValueTextView);
+        clearButton = findViewById(R.id.clearButton);
+        plusMinusButton = findViewById(R.id.plusMinusButton);
+        percentageButton = findViewById(R.id.percentageButton);
+        divideButton = findViewById(R.id.divideButton);
+        multiplyButton = findViewById(R.id.multiplyButton);
+        subtractButton = findViewById(R.id.subtractButton);
+        addButton = findViewById(R.id.addButton);
+        equalButton = findViewById(R.id.equalButton);
+        zeroButton = findViewById(R.id.zeroButton);
+        decimalButton = findViewById(R.id.decimalButton);
+
+        currentValue = "0";
+        previousValue = null;
+        operator = null;
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentValue = "0";
+                previousValue = null;
+                operator = null;
+                updateTextViews();
+            }
+        });
+
+        plusMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentValue = String.valueOf(-Double.parseDouble(currentValue));
+                updateTextViews();
+            }
+        });
+
+        percentageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentValue = String.valueOf(Double.parseDouble(currentValue) / 100);
+                updateTextViews();
+            }
+        });
+
+        divideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                operator = "/";
+                previousValue = currentValue;
+                currentValue = "0";
+                updateTextViews();
+            }
+        });
+
+        multiplyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                operator = "*";
+                previousValue = currentValue;
+                currentValue = "0";
+                updateTextViews();
+            }
+        });
+
+        subtractButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                operator = "-";
+                previousValue = currentValue;
+                currentValue = "0";
+                updateTextViews();
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                operator = "+";
+                previousValue = currentValue;
+                currentValue = "0";
+                updateTextViews();
+            }
+        });
+
+        equalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double current = Double.parseDouble(currentValue);
+                double previous = Double.parseDouble(previousValue);
+
+                switch (operator) {
+                    case "+":
+                        currentValue = String.valueOf(previous + current

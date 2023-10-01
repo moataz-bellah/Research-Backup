@@ -1,0 +1,40 @@
+package com.example.myapplication;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText dateEditText;
+    private TextView ageTextView;
+    private Button getAgeButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        dateEditText = findViewById(R.id.dateEditText);
+        ageTextView = findViewById(R.id.ageTextView);
+        getAgeButton = findViewById(R.id.getAgeButton);
+
+        getAgeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String date = dateEditText.getText().toString();
+                int year = new Date().getYear();
+                int age = year - Integer.parseInt(date);
+                ageTextView.setText("Your age is " + age + " years");
+            }
+        });
+    }
+}

@@ -1,0 +1,61 @@
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private Button sort100Button;
+    private Button sort1000Button;
+    private Button sort10000Button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        sort100Button = findViewById(R.id.sort100Button);
+        sort1000Button = findViewById(R.id.sort1000Button);
+        sort10000Button = findViewById(R.id.sort10000Button);
+
+        sort100Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortArray(100);
+            }
+        });
+
+        sort1000Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortArray(1000);
+            }
+        });
+
+        sort10000Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortArray(10000);
+            }
+        });
+    }
+
+    private void sortArray(int arraySize) {
+        int[] inputArr = new int[arraySize];
+        for (int i = 0; i < arraySize; i++) {
+            inputArr[i] = i;
+        }
+
+        // Sort the array using a bubble sort algorithm
+        for (int i = 0; i < arraySize; i++) {
+            for (int j = 0; j < arraySize - 1; j++) {
+                if (inputArr[j] > inputArr[j + 1]) {
+                    int tmp = inputArr[j];
+                    inputArr[j] = inputArr[j + 1];
+                    inputArr[j + 1] = tmp;
+                }
+            }
+        }
+    }
+}
