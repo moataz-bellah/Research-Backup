@@ -1,0 +1,68 @@
+import SwiftUI
+import AVFoundation
+
+struct AppView: View {
+
+    @State private var cameraIsPresented = false
+    @State private var barcode = ""
+
+    var body: some View {
+        VStack {
+            if cameraIsPresented {
+                CameraView(barcode: $barcode)
+            } else {
+                Button(action: {
+                    cameraIsPresented = true
+                }) {
+                    Text("Open Camera")
+                }
+            }
+
+            Text(barcode)
+                .padding()
+        }
+    }
+}
+
+struct CameraView: View {
+
+    @Binding var barcode: String
+
+    var body: some View {
+        AVCaptureVideoPreview(session: AVCaptureSession())
+            .onAppear {
+                startBarcodeDetection()
+            }
+    }
+
+    private func startBarcodeDetection() {
+        let captureSession = AVCaptureSession()
+
+        let videoInput = AVCaptureDeviceInput(device: AVCaptureDevice.default(for: .video)!, error: nil)
+        captureSession.addInput(videoInput)
+
+        let metadataOutput = AVCaptureMetadataOutput()
+        captureSession.addOutput(metadataOutput)
+
+        metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+
+        metadataOutput.metadataObjectTypes = [.ean8, .ean13, .qr]
+
+        captureSession.startRunning()
+    }
+}
+
+extension CameraView: AVCaptureMetadataOutputObjectsDelegate {
+
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        guard let barcodeObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject else { return }
+
+        barcode = barcodeObject.stringValue ?? ""
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}

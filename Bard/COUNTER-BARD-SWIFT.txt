@@ -1,0 +1,31 @@
+import SwiftUI
+
+struct AppView: View {
+
+    @State private var count = 0
+
+    var body: some View {
+        VStack {
+            Text("\(count)")
+                .padding()
+
+            Button(action: {
+                count += 1
+            }) {
+                Text("Count")
+            }
+
+            Button(action: {
+                // TODO: Navigate to test screen
+            }) {
+                Text("Go to Main Screen")
+            }
+        }
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}

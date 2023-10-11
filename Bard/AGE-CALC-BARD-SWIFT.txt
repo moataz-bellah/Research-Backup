@@ -1,0 +1,38 @@
+import SwiftUI
+
+struct AppView: View {
+
+    @State private var age = ""
+    @State private var date = ""
+
+    var body: some View {
+        VStack {
+            Text("Age Calc.")
+                .padding()
+
+            TextField("Enter your date of birth", text: $date)
+                .padding()
+
+            Text(age)
+                .padding()
+
+            Button(action: {
+                calculateAge()
+            }) {
+                Text("Get Age")
+            }
+        }
+    }
+
+    private func calculateAge() {
+        let year = Date()
+        let age = year.year - date.year
+        self.age = "Your age is \(age) years"
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}

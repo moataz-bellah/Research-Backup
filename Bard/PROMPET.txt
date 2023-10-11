@@ -1,0 +1,1 @@
+translate the following react native code to iOS swift "" 

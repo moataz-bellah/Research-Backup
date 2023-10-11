@@ -1,0 +1,44 @@
+import SwiftUI
+import Paper
+
+struct AppView: View {
+
+    @State private var egp = ""
+    @State private var usd = ""
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Currency Calculation")
+                    .padding()
+
+                TextField("Enter in USD", text: $usd)
+                    .padding()
+
+                Text(egp)
+                    .padding()
+
+                Button(action: {
+                    convertUSDToEGP()
+                }) {
+                    Text("Convert to EGP")
+                }
+                .foregroundColor(Color.white)
+                .padding()
+                .background(Color.purple)
+                .cornerRadius(10)
+            }
+        }
+    }
+
+    private func convertUSDToEGP() {
+        let egp = Double(usd)! * 15.7
+        self.egp = "\(usd) USD equals \(egp) EGP"
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}

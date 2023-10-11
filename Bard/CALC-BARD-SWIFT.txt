@@ -1,0 +1,63 @@
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var valueLabel: UILabel!
+
+    private var currVal: String = "0"
+    private var operator: String?
+    private var prevVal: String?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Setup the value label
+        valueLabel.text = currVal
+    }
+
+    @IBAction func handleTap(_ sender: UIButton) {
+        let type = sender.tag // 0 for number, 1 for operator, 2 for clear, 3 for posneg, 4 for percentage, 5 for equal
+        let value = sender.titleLabel?.text ?? ""
+
+        switch type {
+        case 0:
+            currVal += value
+        case 1:
+            operator = value
+            prevVal = currVal
+            currVal = "0"
+        case 2:
+            currVal = "0"
+            operator = nil
+            prevVal = nil
+        case 3:
+            currVal = String(-1 * Float(currVal)!)
+        case 4:
+            currVal = String(Float(currVal)! * 0.01)
+        case 5:
+            let current = Float(currVal)!
+            let previous = Float(prevVal)!
+
+            switch operator {
+            case "+":
+                currVal = String(previous + current)
+            case "/":
+                currVal = String(previous / current)
+            case "-":
+                currVal = String(previous - current)
+            case "*":
+                currVal = String(previous * current)
+            default:
+                break
+            }
+
+            operator = nil
+            prevVal = nil
+        default:
+            break
+        }
+
+        // Update the value label
+        valueLabel.text = currVal
+    }
+}

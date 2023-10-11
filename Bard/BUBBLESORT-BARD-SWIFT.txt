@@ -1,0 +1,53 @@
+import SwiftUI
+
+struct AppView: View {
+
+    @State private var sortingArray = [Int]()
+
+    var body: some View {
+        VStack {
+            Button(action: {
+                sortArray(ofSize: 100)
+            }) {
+                Text("Sort 100")
+            }
+
+            Button(action: {
+                sortArray(ofSize: 1000)
+            }) {
+                Text("Sort 1000")
+            }
+
+            Button(action: {
+                sortArray(ofSize: 10000)
+            }) {
+                Text("Sort 10000")
+            }
+
+            StatusBar()
+        }
+    }
+
+    private func sortArray(ofSize size: Int) {
+        sortingArray = []
+        for i in 0..<size {
+            sortingArray.append(i)
+        }
+
+        for i in 0..<sortingArray.count {
+            for j in 0..<sortingArray.count - 1 {
+                if sortingArray[j] > sortingArray[j + 1] {
+                    let tmp = sortingArray[j]
+                    sortingArray[j] = sortingArray[j + 1]
+                    sortingArray[j + 1] = tmp
+                }
+            }
+        }
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}

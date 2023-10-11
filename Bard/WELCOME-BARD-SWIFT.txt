@@ -1,0 +1,27 @@
+import SwiftUI
+
+struct AppView: View {
+
+    @State private var name = ""
+
+    var body: some View {
+        VStack {
+            TextField("Enter Your Name", text: $name)
+                .padding()
+
+            Text(name)
+
+            Button(action: {
+                // TODO: Navigate to test screen
+            }) {
+                Text("Go to Counter Screen")
+            }
+        }
+    }
+}
+
+struct App: View {
+    var body: some View {
+        AppView()
+    }
+}
