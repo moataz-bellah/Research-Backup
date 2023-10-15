@@ -1,0 +1,74 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var sortedArray: [Int] = []
+    @State private var isSorting = false
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Sort Array")
+                    .font(.largeTitle)
+                    .padding()
+
+                Text("Sorted Array: \(sortedArray)")
+                    .font(.headline)
+                    .padding()
+
+                Button(action: {
+                    self.sortArray(count: 100)
+                }) {
+                    Text("Sort 100")
+                        .font(.title)
+                        .padding()
+                }
+                .disabled(isSorting)
+
+                Button(action: {
+                    self.sortArray(count: 1000)
+                }) {
+                    Text("Sort 1000")
+                        .font(.title)
+                        .padding()
+                }
+                .disabled(isSorting)
+
+                Button(action: {
+                    self.sortArray(count: 10000)
+                }) {
+                    Text("Sort 10000")
+                        .font(.title)
+                        .padding()
+                }
+                .disabled(isSorting)
+            }
+            .navigationBarTitle("React Native to SwiftUI")
+        }
+    }
+
+    func sortArray(count: Int) {
+        isSorting = true
+        DispatchQueue.global().async {
+            var inputArray = Array(0..<count)
+            inputArray.shuffle()
+            inputArray.sort()
+            DispatchQueue.main.async {
+                sortedArray = inputArray
+                isSorting = false
+            }
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+@available(iOS 15.0, *)
+struct ContentViewPreviews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

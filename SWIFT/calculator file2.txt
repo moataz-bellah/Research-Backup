@@ -1,0 +1,33 @@
+import SwiftUI
+
+struct CalculatorButtonPad: View {
+    @Binding var result: String
+    @Binding var currentInput: String
+    @Binding var currentOperator: CalculatorOperator
+
+    let buttons: [[CalculatorButtonItem]] = [
+        [.clear, .sign, .percent, .division],
+        [.seven, .eight, .nine, .multiplication],
+        [.four, .five, .six, .subtraction],
+        [.one, .two, .three, .addition],
+        [.zero, .decimal, .equal]
+    ]
+
+    var body: some View {
+        VStack(spacing: 10) {
+            ForEach(buttons, id: \.self) { row in
+                HStack(spacing: 10) {
+                    ForEach(row, id: \.self) { item in
+                        CalculatorButtonView(button: item, result: $result, currentInput: $currentInput, currentOperator: $currentOperator)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct CalculatorButtonPad_Previews: PreviewProvider {
+    static var previews: some View {
+        CalculatorButtonPad(result: .constant(""), currentInput: .constant(""), currentOperator: .constant(.none))
+    }
+}

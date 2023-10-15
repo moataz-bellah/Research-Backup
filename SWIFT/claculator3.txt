@@ -1,0 +1,144 @@
+import SwiftUI
+
+enum CalculatorButtonItem: Hashable {
+    case digit(Int)
+    case dot
+    case clear
+    case sign
+    case percent
+    case addition
+    case subtraction
+    case multiplication
+    case division
+    case equal
+
+    var title: String {
+        switch self {
+        case .digit(let value): return String(value)
+        case .dot: return "."
+        case .clear: return "AC"
+        case .sign: return "+/-"
+        case .percent: return "%"
+        case .addition: return "+"
+        case .subtraction: return "-"
+        case .multiplication: return "×"
+        case .division: return "÷"
+        case .equal: return "="
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .clear, .sign, .percent, .division:
+            return .accentColor
+        case .equal:
+            return .pink
+        default:
+            return Color(.lightGray)
+        }
+    }
+}
+
+struct CalculatorButtonView: View {
+    let button: CalculatorButtonItem
+    @Binding var result: String
+    @Binding var currentInput: String
+    @Binding var currentOperator: CalculatorOperator
+
+    var body: some View {
+        Button(action: {
+            self.tap()
+        }) {
+            Text(button.title)
+                .font(.title)
+                .frame(width: self.buttonWidth(button), height: self.buttonHeight())
+                .foregroundColor(.black)
+                .background(button.backgroundColor)
+                .cornerRadius(self.buttonWidth(button) / 2)
+        }
+    }
+
+    func tap() {
+        switch button {
+        case .digit(let value):
+            currentInput.append("\(value)")
+            result = currentInput
+        case .dot:
+            if !currentInput.contains(".") {
+                currentInput.append(".")
+                result = currentInput
+            }
+        case .clear:
+            currentInput = ""
+            result = "0"
+            currentOperator = .none
+        case .sign:
+            if currentInput != "0" {
+                if currentInput.hasPrefix("-") {
+                    currentInput.removeFirst()
+                } else {
+                    currentInput = "-" + currentInput
+                }
+                result = currentInput
+            }
+        case .percent:
+            if let value = Double(currentInput) {
+                currentInput = String(value / 100.0)
+                result = currentInput
+            }
+        case .addition:
+            setOperator(.addition)
+        case .subtraction:
+            setOperator(.subtraction)
+        case .multiplication:
+            setOperator(.multiplication)
+        case .division:
+            setOperator(.division)
+        case .equal:
+            performCalculation()
+        }
+    }
+
+    func setOperator(_ operator: CalculatorOperator) {
+        if !currentInput.isEmpty {
+            currentOperator = `operator`
+            currentInput = ""
+        }
+    }
+
+    func performCalculation() {
+        guard !currentInput.isEmpty else { return }
+        guard let currentValue = Double(currentInput), let prevValue = Double(result) else { return }
+
+        switch currentOperator {
+        case .addition:
+            result = "\(prevValue + currentValue)"
+        case .subtraction:
+            result = "\(prevValue - currentValue)"
+        case .multiplication:
+            result = "\(prevValue * currentValue)"
+        case .division:
+            if currentValue != 0 {
+                result = "\(prevValue / currentValue)"
+            } else {
+                result = "Error"
+            }
+        default:
+            break
+        }
+
+        currentOperator = .none
+        currentInput = result
+    }
+
+    func buttonWidth(_ button: CalculatorButtonItem) -> CGFloat {
+        if button == .zero {
+            return (UIScreen.main.bounds.width - 5 * 12) / 4 * 2
+        }
+        return (UIScreen.main.bounds.width - 5 * 12) / 4
+    }
+
+    func buttonHeight() -> CGFloat {
+        (UIScreen.main.bounds.width - 5 * 12) / 4
+    }
+}

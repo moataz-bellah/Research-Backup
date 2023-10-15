@@ -1,0 +1,33 @@
+import SwiftUI
+
+@main
+struct MySwiftUIApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        ZStack {
+            CameraView() // Implement your camera view here
+                .ignoresSafeArea(.all, edges: .all)
+            
+            Text("Camera Placeholder")
+                .font(.largeTitle)
+                .foregroundColor(.white)
+        }
+    }
+}
+
+// Implement the CameraView using AVCaptureSession here
+struct CameraView: View {
+    var body: some View {
+        // Implement your camera view here using AVCaptureSession
+        Text("Camera View Goes Here")
+            .font(.title)
+            .foregroundColor(.white)
+    }
+}

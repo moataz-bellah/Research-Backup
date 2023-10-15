@@ -1,0 +1,72 @@
+import SwiftUI
+
+@main
+struct MySwiftUIApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}
+
+struct ContentView: View {
+    @State private var showMap = false
+    @State private var showCamera = false
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("My Swift iOS App")
+                    .font(.largeTitle)
+                    .padding(.bottom, 20)
+
+                Button(action: {
+                    showMap.toggle()
+                }) {
+                    Text("Open Maps 🗺")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .sheet(isPresented: $showMap) {
+                    MapView()
+                }
+
+                Button(action: {
+                    showCamera.toggle()
+                }) {
+                    Text("Open Camera 📷")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .sheet(isPresented: $showCamera) {
+                    CameraView()
+                }
+
+                Spacer()
+            }
+            .navigationTitle("My Swift App")
+        }
+    }
+}
+
+struct MapView: View {
+    var body: some View {
+        Text("Placeholder for Maps View")
+            .font(.title)
+            .padding()
+    }
+}
+
+struct CameraView: View {
+    var body: some View {
+        Text("Placeholder for Camera View")
+            .font(.title)
+            .padding()
+    }
+}

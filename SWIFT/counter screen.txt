@@ -1,0 +1,24 @@
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var counterLabel: UILabel!
+    var counter = 0
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
+    @IBAction func incrementButtonTapped(_ sender: UIButton) {
+        counter += 1
+        updateCounterLabel()
+    }
+
+    @IBAction func goToMainScreenButtonTapped(_ sender: UIButton) {
+        // Implement navigation to the second screen here
+    }
+
+    func updateCounterLabel() {
+        counterLabel.text = "Counter: \(counter)"
+    }
+}

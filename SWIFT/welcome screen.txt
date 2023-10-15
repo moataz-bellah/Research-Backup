@@ -1,0 +1,46 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var onChangeText: String = ""
+    @State private var isNavigated = false
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                TextField("Enter Your Name", text: $onChangeText)
+                    .font(.title)
+                    .padding()
+                
+                Text(onChangeText)
+                    .font(.title)
+                    .padding()
+                
+                NavigationLink(
+                    destination: Text("Counter Screen").font(.title),
+                    isActive: $isNavigated
+                ) {
+                    EmptyView()
+                }
+                
+                Button(action: {
+                    self.isNavigated = true
+                }) {
+                    Text("Go to Counter Screen")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            .navigationBarTitle("React Native to SwiftUI")
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
