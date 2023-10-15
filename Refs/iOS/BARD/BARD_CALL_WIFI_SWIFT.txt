@@ -1,0 +1,53 @@
+import SwiftUI
+import UIKit
+
+struct ContentView: View {
+
+    @State private var phoneNumber = ""
+    var temp = ""
+    var body: some View {
+        VStack {
+            TextField("Phone Number", text: $phoneNumber)
+                .padding()
+
+            Button(action: {
+                
+                    call(phoneNumber)
+                
+            }) {
+                Text("Call")
+            }
+
+            Button(action: {
+                openWiFiSettings()
+            }) {
+                Text("Open Wifi")
+            }
+
+            Image(uiImage: UIImage(named: "tiny_logo.png")!)
+                .resizable()
+                .frame(width: 50, height: 50)
+
+        
+        }
+    }
+
+    private func call(_ phoneNumber: String) {
+        let url = URL(string: "tel:\(phoneNumber)")!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    private func openWiFiSettings() {
+        let url = URL(string: UIApplication.openSettingsURLString)!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+    ContentView() }
+ }
+
+
+

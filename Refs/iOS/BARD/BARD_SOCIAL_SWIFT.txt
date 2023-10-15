@@ -1,0 +1,36 @@
+import SwiftUI
+
+struct ContentView: View {
+
+    var body: some View {
+        VStack {
+            Button(action: {
+                openURL(url: "https://www.instagram.com/")
+            }) {
+                Text("Open Instagram")
+            }
+
+            Button(action: {
+                openURL(url: "https://www.facebook.com/")
+            }) {
+                Text("Open Facebook")
+            }
+
+            Button(action: {
+                openURL(url: "https://www.youtube.com/")
+            }) {
+                Text("Open Youtube")
+            }
+        }
+    }
+
+    private func openURL(url: String) {
+        UIApplication.shared.open(URL(string: url)!, options: [:], completionHandler: nil)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+   static var previews: some View {
+        ContentView()
+    }
+}

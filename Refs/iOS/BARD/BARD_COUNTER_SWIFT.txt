@@ -1,0 +1,29 @@
+import SwiftUI
+
+struct ContentView: View {
+
+    @State private var count = 0
+
+    var body: some View {
+        NavigationView{
+        VStack {
+            Text("\(count)")
+                .padding()
+
+            Button(action: {
+                count += 1
+            }) {
+                Text("Count")
+            }
+
+            NavigationLink(destination: testScreen()) {
+                                Text("Go To main")
+                            }
+        }
+    }
+    }
+}
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+ContentView() }
+ }
