@@ -1,0 +1,43 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var onChangeText = 0
+    
+    var body: some View {
+        VStack {
+            Text("\(onChangeText)")
+                .font(.system(size: 20))
+            
+            Button(action: {
+                onChangeText += 1
+            }) {
+                Text("Count")
+
+                    .font(.headline)
+                    .padding()
+            }
+            
+            NavigationLink(
+                destination: Text("Main Screen"),
+                label: {
+                    Text("Go to Main Screen")
+                        
+                        .font(.headline)
+                        .padding()
+                }
+            )
+        }
+    }
+}
+
+
+struct ContentView_Previews:PreviewProvider{
+static var previews:some View{
+    ContentView() }
+ }
+
+
+
+
+
+
