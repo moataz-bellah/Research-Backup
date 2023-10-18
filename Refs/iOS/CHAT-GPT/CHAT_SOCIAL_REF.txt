@@ -1,0 +1,42 @@
+import SwiftUI
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            LinkButton(title: "Open Instagram", url: "https://www.instagram.com/")
+            LinkButton(title: "Open Facebook", url: "https://www.facebook.com/")
+            LinkButton(title: "Open YouTube", url: "https://www.youtube.com/")
+        }
+    }
+}
+
+struct LinkButton: View {
+    let title: String
+    let url: String
+    
+    var body: some View {
+        Button(action: {
+            if let link = URL(string: url) {
+                UIApplication.shared.open(link)
+            }
+        }) {
+            Text(title)
+                .font(.headline)
+                
+        }
+    }
+}
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,60 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var usdAmount = ""
+    @State private var egpResult = ""
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Currency Calculation")
+                    .font(.title)
+                    .padding(.top, 20)
+
+                TextField("Enter in USD", text: $usdAmount)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .keyboardType(.decimalPad)
+
+                Text(egpResult)
+                    .font(.headline)
+                    .padding()
+
+                Button("Convert to EGP") {
+                    calculateEGP()
+                }
+                .buttonStyle(BlueButtonStyle())
+                .padding()
+
+                Spacer()
+            }
+            .navigationTitle("Currency Calculator")
+        }
+    }
+
+    func calculateEGP() {
+        if let usd = Double(usdAmount) {
+            let egp = usd * 15.7
+            egpResult = "\(usd) USD equals \(egp) EGP"
+        } else {
+            egpResult = "Invalid input. Please enter a valid amount in USD."
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct BlueButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.purple)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+}

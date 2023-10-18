@@ -1,0 +1,57 @@
+import SwiftUI
+
+
+
+struct ContentView: View {
+    @State private var userInput = ""
+    
+    var body: some View {
+        VStack {
+            Text("My Swift iOS App")
+                .font(.largeTitle)
+                .padding(.bottom, 20)
+            
+            TextField("Enter a phone number", text: $userInput)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            
+            Text("Hello \(userInput)")
+                .font(.headline)
+                .padding(.bottom, 20)
+            
+            Button(action: {
+                if !userInput.isEmpty {
+                    if let phoneNumber = URL(string: "tel://\(userInput)") {
+                        UIApplication.shared.open(phoneNumber)
+                    }
+                }
+            }) {
+                Text("Call")
+                    .font(.title)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            
+            Button(action: {
+                if let wifiURL = URL(string: "App-Prefs:root=WIFI") {
+                    UIApplication.shared.open(wifiURL)
+                }
+            }) {
+                Text("Open WiFi Settings")
+                    .font(.title)
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+            
+            Image(systemName: "photo.on.rectangle.angled")
+                .resizable()
+                .frame(width: 50, height: 50)
+                .padding()
+        }
+        .navigationTitle("My Swift App")
+    }
+}

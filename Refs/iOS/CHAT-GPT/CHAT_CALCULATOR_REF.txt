@@ -1,0 +1,282 @@
+import SwiftUI
+
+enum CalculatorOperator {
+    case none, addition, subtraction, multiplication, division
+}
+
+struct ContentView: View {
+    @State private var currentInput = ""
+    @State private var result = "0"
+    @State private var currentOperator: CalculatorOperator = .none
+
+    var body: some View {
+        VStack(alignment: .trailing, spacing: 10) {
+            Text(result)
+                .font(.system(size: 40))
+                .foregroundColor(.white)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .trailing)
+
+            CalculatorButtonPad(result: $result, currentInput: $currentInput, currentOperator: $currentOperator)
+        }
+        .background(Color.black)
+        .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+@available(iOS 15.0, *)
+struct ContentViewPreviews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+
+
+struct CalculatorButtonPad: View {
+    @Binding var result: String
+    @Binding var currentInput: String
+    @Binding var currentOperator: CalculatorOperator
+
+    let buttons: [[CalculatorButtonItem]] = [
+        [.clear, .sign, .percent, .division],
+        [.seven, .eight, .nine, .multiplication],
+        [.four, .five, .six, .subtraction],
+        [.one, .two, .three, .addition],
+        [.zero, .decimal, .equal]
+    ]
+
+    var body: some View {
+        VStack(spacing: 10) {
+            ForEach(buttons, id: \.self) { row in
+                HStack(spacing: 10) {
+                    ForEach(row, id: \.self) { item in
+                        CalculatorButtonView(button: item, result: $result, currentInput: $currentInput, currentOperator: $currentOperator)
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct CalculatorButtonPad_Previews: PreviewProvider {
+    static var previews: some View {
+        CalculatorButtonPad(result: .constant(""), currentInput: .constant(""), currentOperator: .constant(.none))
+    }
+}
+
+
+enum CalculatorButtonItem: Hashable {
+    case digit(Int)
+    case dot
+    case clear
+    case sign
+    case percent
+    case addition
+    case subtraction
+    case multiplication
+    case division
+    case equal
+    case seven
+    case eight
+    case nine
+    case four
+    case five
+    case six
+    case one
+    case two
+    case three
+    case zero
+    case decimal
+    var title: String {
+        switch self {
+        case .digit(let value): return String(value)
+        case .dot: return "."
+        case .clear: return "AC"
+        case .sign: return "+/-"
+        case .percent: return "%"
+        case .addition: return "+"
+        case .subtraction: return "-"
+        case .multiplication: return "×"
+        case .division: return "÷"
+        case .equal: return "="
+        case .seven:
+            return "7"
+        case .eight:
+            return "8"
+        case .nine:
+            return "9"
+        case .four:
+            return "4"
+        case .five:
+            return "5"
+        case .six:
+            return "6"
+        case .one:
+            return "1"
+        case .two:
+            return "2"
+        case .three:
+            return "3"
+        case .zero:
+            return "0"
+        case .decimal:
+            return "."
+        }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .clear, .sign, .percent, .division:
+            return .accentColor
+        case .equal:
+            return .pink
+        default:
+            return Color(.lightGray)
+        }
+    }
+}
+
+struct CalculatorButtonView: View {
+    let button: CalculatorButtonItem
+    @Binding var result: String
+    @Binding var currentInput: String
+    @Binding var currentOperator: CalculatorOperator
+
+    var body: some View {
+        Button(action: {
+            self.tap()
+        }) {
+            Text(button.title)
+                .font(.title)
+                .frame(width: self.buttonWidth(button), height: self.buttonHeight())
+                .foregroundColor(.black)
+                .background(button.backgroundColor)
+                .cornerRadius(self.buttonWidth(button) / 2)
+        }
+    }
+
+    func tap() {
+        switch button {
+        case .digit(let value):
+            currentInput.append("\(value)")
+            result = currentInput
+        case .dot:
+            if !currentInput.contains(".") {
+                currentInput.append(".")
+                result = currentInput
+            }
+        case .clear:
+            currentInput = ""
+            result = "0"
+            currentOperator = .none
+        case .sign:
+            if currentInput != "0" {
+                if currentInput.hasPrefix("-") {
+                    currentInput.removeFirst()
+                } else {
+                    currentInput = "-" + currentInput
+                }
+                result = currentInput
+            }
+        case .percent:
+            if let value = Double(currentInput) {
+                currentInput = String(value / 100.0)
+                result = currentInput
+            }
+        case .addition:
+            setOperator(.addition)
+        case .subtraction:
+            setOperator(.subtraction)
+        case .multiplication:
+            setOperator(.multiplication)
+        case .division:
+            setOperator(.division)
+        case .equal:
+            performCalculation()
+        case .seven:
+            currentInput.append("7")
+            result = currentInput
+        case .eight:
+            currentInput.append("8")
+            result = currentInput
+            
+        case .nine:
+            currentInput.append("9")
+            result = currentInput
+        case .four:
+            currentInput.append("4")
+            result = currentInput
+        case .five:
+            currentInput.append("5")
+            result = currentInput
+        case .six:
+            currentInput.append("6")
+            result = currentInput
+        case .one:
+            currentInput.append("1")
+            result = currentInput
+        case .two:
+            currentInput.append("2")
+            result = currentInput
+        case .three:
+            currentInput.append("3")
+            result = currentInput
+        case .zero:
+            currentInput.append("7")
+            result = currentInput
+        case .decimal:
+            currentInput.append(".")
+            
+        }
+    }
+
+    func setOperator(_ operator: CalculatorOperator) {
+        if !currentInput.isEmpty {
+            currentOperator = `operator`
+            currentInput = ""
+        }
+    }
+
+    func performCalculation() {
+        guard !currentInput.isEmpty else { return }
+        guard let currentValue = Double(currentInput), let prevValue = Double(result) else { return }
+
+        switch currentOperator {
+        case .addition:
+            result = "\(prevValue + currentValue)"
+        case .subtraction:
+            result = "\(prevValue - currentValue)"
+        case .multiplication:
+            result = "\(prevValue * currentValue)"
+        case .division:
+            if currentValue != 0 {
+                result = "\(prevValue / currentValue)"
+            } else {
+                result = "Error"
+            }
+        default:
+            break
+        }
+
+        currentOperator = .none
+        currentInput = result
+    }
+
+    func buttonWidth(_ button: CalculatorButtonItem) -> CGFloat {
+        if button == .zero {
+            return (UIScreen.main.bounds.width - 5 * 12) / 4 * 2
+        }
+        return (UIScreen.main.bounds.width - 5 * 12) / 4
+    }
+
+    func buttonHeight() -> CGFloat {
+        (UIScreen.main.bounds.width - 5 * 12) / 4
+    }
+}

@@ -1,0 +1,64 @@
+import SwiftUI
+
+struct ContentView: View {
+    @State private var age: String = ""
+    @State private var birthdate: String = ""
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                Text("Age Calculator")
+                    .font(.title)
+                    .padding(.top, 20)
+
+                TextField("Enter your birthdate (YYYY)", text: $birthdate)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .keyboardType(.numberPad)
+
+                Text("Age: \(age)")
+                    .font(.headline)
+                    .padding()
+
+                Button("Calculate Age") {
+                    calculateAge()
+                }
+                .buttonStyle(BlueButtonStyle())
+                .padding()
+
+                Spacer()
+            }
+            .navigationTitle("Age Calculator")
+        }
+    }
+
+    func calculateAge() {
+        if let birthYear = Int(birthdate) {
+            let currentYear = Calendar.current.component(.year, from: Date())
+            let calculatedAge = currentYear - birthYear
+            age = "Your age is \(calculatedAge) years."
+        } else {
+            age = "Invalid input. Please enter a valid year."
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+struct BlueButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+    }
+}
+
+
+
